@@ -13,14 +13,28 @@ class App extends React.Component {
 
   }
 
+  // url: 'FILL ME IN',
+  // headers: {
+  //   'User-Agent': 'request',
+  //   'Authorization': `token ${config.TOKEN}`
+  // }
+
+
+
   search (term) {
     console.log(`${term} was searched`);
-    // TODO
+    $.ajax({
+      type: "POST",
+      url: "http://127.0.0.1:1128/repos",
+      dataType: "JSON",
+      data: {term: term}
+    }).done(data => console.log("got data back!", data))
+    // .fail(console.log(failed))
   }
 
   render () {
     return (<div>
-      <h1>Github Fetcher</h1>
+      <h1 onClick={() => this.search('hello')}>Github Fetcher</h1>
       <RepoList repos={this.state.repos}/>
       <Search onSearch={this.search.bind(this)}/>
     </div>)

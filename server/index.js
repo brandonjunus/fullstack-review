@@ -1,9 +1,16 @@
 const express = require('express');
+let bodyParser = require('body-parser');
+
 let app = express();
+
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true })); // for parsing application/x-www-form-urlencoded
 
 app.use(express.static(__dirname + '/../client/dist'));
 
 app.post('/repos', function (req, res) {
+  console.log("recieved request", req.body.term);
+  
   // TODO - your code here!
   // This route should take the github username provided
   // and get the repo information from the github API, then
