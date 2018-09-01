@@ -24,11 +24,23 @@ let save = (userRepoObject) => {
     created_at: userRepoObject.created_at,
     updated_at: userRepoObject.updated_at
   });
-  userRepoObjectId.save((err) => {
-    if (err) return (err);
-    console.log("saved a new user's repo!")
-  })
+  // userRepoObjectId.save((err) => {
+  //   if (err) return (err);
+  //   console.log("saved a new user's repo!")
+  var query = {name: userRepoObject.name},
+      update = userRepoObjectId,
+      options = { upsert: true, new: true, setDefaultsOnInsert: true };
+  
+  // Find the document
+  Repo.findOneAndUpdate(query, update, options, (error, result) => {
+      if (error) return;
+      console.log("Updated the repo: ", result)
+      // do something with the document
+  });
+  
 }
+
+
 
 getData = (callback) => {
   Repo.find( (err, repos) => {
