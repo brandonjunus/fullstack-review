@@ -21,7 +21,7 @@ class App extends React.Component {
       data => {
         console.log(data)
         this.setState({
-          repos: data
+          repos: data 
         })
       }
     )
@@ -41,8 +41,8 @@ class App extends React.Component {
   render () {
     return (<div>
       <h1 onClick={() => this.search('hello')}>Github Fetcher</h1>
-      <RepoList repos={this.state.repos}/>
       <Search onSearch={this.search.bind(this)}/>
+      <RepoList repos={this.state.repos}/>
     </div>)
   }
 }
