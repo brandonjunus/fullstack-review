@@ -10,16 +10,22 @@ class App extends React.Component {
     this.state = { 
       repos: []
     }
-
   }
 
-  // url: 'FILL ME IN',
-  // headers: {
-  //   'User-Agent': 'request',
-  //   'Authorization': `token ${config.TOKEN}`
-  // }
-
-
+  componentDidMount() {
+    $.ajax({
+      type: "GET",
+      url: "http://127.0.0.1:1128/repos",
+      dataType: "JSON",
+    }).done(
+      data => {
+        console.log(data)
+        this.setState({
+          repos: data
+        })
+      }
+    )
+  }
 
   search (term) {
     console.log(`${term} was searched`);
@@ -28,7 +34,7 @@ class App extends React.Component {
       url: "http://127.0.0.1:1128/repos",
       dataType: "JSON",
       data: {term: term}
-    }).done(data => console.log("got data back!", data))
+    }).done(console.log("got data back!"))
     // .fail(console.log(failed))
   }
 
